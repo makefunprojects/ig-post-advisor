@@ -255,7 +255,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'grok-beta',  // 免費穩定版 – 換 grok-4 如果付費
+        model: 'grok-3',  // 免費穩定版 – 換 grok-4 如果付費
         messages,
         temperature: 0.8,
         max_tokens: 2000
@@ -285,3 +285,4 @@ export default async function handler(req, res) {
     res.status(500).json({ reply: '系統忙碌中，請 10 秒後再試！（若持續，檢查 API 金鑰）' });
   }
 }
+
