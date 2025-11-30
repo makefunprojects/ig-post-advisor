@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>IG Post 顧問 | 高轉化貼文神器</title>
 
-  <!-- Noto Sans HK 字體（香港人最愛） -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -15,40 +14,46 @@
     body { font-family: 'Noto Sans HK', sans-serif; background: #FFFFFF; color: #000000; }
     .hard-shadow { box-shadow: 6px 6px 0px 0px #000000; }
     .hard-shadow-pressed { box-shadow: 3px 3px 0px 0px #000000; }
-    .message { line-height: 1.8; }
-    .bot-msg p { margin: 14px 0; }
     .loading p { color: #666; font-style: italic; animation: pulse 1.8s infinite; }
     @keyframes pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
     mark { background: #000; color: #FFF; padding: 4px 10px; border-radius: 8px; }
+    /* 解決 iPhone 底部被瀏覽器 bar 遮擋 */
+    #chatForm { padding-bottom: env(safe-area-inset-bottom, 20px); }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
   <!-- Header -->
-  <header class="border-b-4 border-black p-6 text-center hard-shadow bg-white">
-    <h1 class="text-4xl md:text-5xl font-black mb-2">IG Post 顧問</h1>
-    <p class="text-lg font-medium">高轉化 IG 貼文即刻生成 ✨</p>
+  <header class="border-b-4 border-black p-5 text-center hard-shadow bg-white">
+    <h1 class="text-4xl font-black mb-2 leading-tight">IG Post 顧問</h1>
+    <p class="text-lg font-medium">高轉化 IG 貼文即刻生成</p>
   </header>
 
-  <!-- Messages Area -->
-  <main id="messages" class="flex-1 overflow-y-auto p-6 space-y-6 bg-[#F3F4F6]"></main>
+  <!-- Messages -->
+  <main id="messages" class="flex-1 overflow-y-auto px-4 pt-6 pb-2 bg-[#F3F4F6] space-y-5"></main>
 
-  <!-- Input Area -->
-  <form id="chatForm" class="p-6 bg-white border-t-4 border-black hard-shadow">
-    <div class="flex gap-4 max-w-4xl mx-auto">
-      <input 
-        type="text" 
-        id="userInput" 
-        placeholder="例如：25歲月光族OL，想推高息儲蓄戶口…" 
-        class="flex-1 px-6 py-5 text-lg border-4 border-black rounded-3xl focus:outline-none focus:ring-0 focus:hard-shadow-pressed transition-all"
-        required 
-      />
-      <button 
-        type="submit"
-        class="px-10 py-5 bg-black text-white font-black text-xl rounded-3xl border-4 border-black hard-shadow hover:hard-shadow-pressed active:hard-shadow-pressed transition-all"
-      >
-        傳送
-      </button>
+  <!-- Input Form -->
+  <form id="chatForm" class="bg-white border-t-4 border-black hard-shadow">
+    <div class="p-4 max-w-5xl mx-auto">
+      <div class="flex flex-col sm:flex-row gap-3">
+        <!-- 可多行輸入框 -->
+        <textarea 
+          id="userInput" 
+          rows="1"
+          placeholder="例如：28歲月光族OL，想推高息儲蓄戶口，痛點係月尾無錢，目標每月多$800…"
+          class="flex-1 px-6 py-4 text-base sm:text-lg border-4 border-black rounded-3xl resize-none focus:outline-none focus:hard-shadow-pressed transition-all min-h-12 max-h-32"
+          style="field-sizing: content;"
+          required
+        ></textarea>
+
+        <!-- 傳送掣永遠見到 -->
+        <button 
+          type="submit"
+          class="px-8 py-4 bg-black text-white font-black text-lg sm:text-xl rounded-3xl border-4 border-black hard-shadow hover:hard-shadow-pressed active:hard-shadow-pressed transition-all whitespace-nowrap"
+        >
+          傳送
+        </button>
+      </div>
     </div>
   </form>
 
@@ -58,9 +63,15 @@
     const userInput = document.getElementById('userInput');
     let messageHistory = [];
 
+    // 自動調整 textarea 高度
+    userInput.addEventListener('input', function () {
+      this.style.height = 'auto';
+      this.style.height = this.scrollHeight + 'px';
+    });
+
     function addMessage(content, isBot = false) {
       const div = document.createElement('div');
-      div.className = `hard-shadow p-6 rounded-3xl border-4 border-black max-w-2xl mx-auto ${isBot ? 'bg-white' : 'bg-black text-white ml-auto'}`;
+      div.className = `hard-shadow p-5 sm:p-6 rounded-3xl border-4 border-black max-w-full sm:max-w-2xl ${isBot ? 'bg-white' : 'bg-black text-white ml-auto'}`;
 
       if (isBot) {
         const formatted = content
@@ -68,9 +79,9 @@
           .replace(/\n/g, '<br>')
           .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
           .replace(/【(.*?)】/g, '<mark>$1</mark>');
-        div.innerHTML = `<p class="text-lg">${formatted}</p>`;
+        div.innerHTML = `<p class="text-base sm:text-lg leading-relaxed">${formatted}</p>`;
       } else {
-        div.innerHTML = `<p class="text-lg font-bold text-right">${content}</p>`;
+        div.innerHTML = `<p class="text-base sm:text-lg font-bold text-right leading-relaxed">${content}</p>`;
       }
 
       messagesDiv.appendChild(div);
@@ -83,10 +94,10 @@
 
       addMessage(msg, false);
       userInput.value = '';
+      userInput.style.height = 'auto';
 
-      // Loading
       const loading = document.createElement('div');
-      loading.className = 'hard-shadow p-6 rounded-3xl border-4 border-black bg-white max-w-2xl mx-auto loading';
+      loading.className = 'hard-shadow p-5 rounded-3xl border-4 border-black bg-white max-w-full sm:max-w-2xl loading';
       loading.innerHTML = '<p>諗緊緊… 等我 10 秒呀！</p>';
       messagesDiv.appendChild(loading);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
@@ -100,7 +111,6 @@
       });
 
       loading.remove();
-
       const data = await res.json();
       const reply = data.reply || '（系統忙緊，遲啲再試啦）';
 
@@ -113,29 +123,22 @@
       sendMessage();
     });
 
-    userInput.addEventListener('keypress', e => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-      }
-    });
-
-    // 開場歡迎訊息
+    // 開場歡迎
     setTimeout(() => {
       addMessage(`
 哈囉！我是你嘅 IG Post 顧問
 
 今日想整咩類型嘅貼文呀？
 
-直接畀我以下 5 樣資料，我就即刻幫你度身訂造超高轉化嘅 IG 帖文！
+直接畀我以下 5 樣資料，我就即刻幫你整超高轉化嘅 IG 帖文！
 
-目標客戶特質（例如：28歲月光族OL）
+目標客戶（例如：28歲月光族OL）
 行業／產品（例如：高息儲蓄戶口）
 痛點（例如：月尾無錢使）
 競爭對手（例如：普通銀行）
 最終目標（例如：每月多$800被動收入）
 
-有網址都可以畀我一齊研究～
+有網址都可以畀我研究～
 
 等緊你呀！`, true);
     }, 500);
