@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IG Post Advisor – High-Conversion Instagram Ideas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body { background: #0f172a; color: #e2e8f0; }
+    #messages { scroll-behavior: smooth; }
+    .user-msg { background: #1e293b; align-self: flex-end; }
+    .bot-msg { background: #334155; align-self: flex-start; }
+  </style>
+</head>
+<body class="flex flex-col h-screen">
+
+  <header class="bg-gradient-to-r from-purple-900 to-indigo-900 p-4 shadow-lg">
+    <h1 class="text-2xl font-bold text-center">IG Post Advisor</h1>
+    <p class="text-center text-sm opacity-90">Get viral Instagram post ideas for high-interest savings & insurance (paycheck-to-paycheck audience)</p>
+  </header>
+
+  <div id="messages" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+
+  <form id="chatForm" class="p-4 bg-slate-900 flex gap-3">
+    <input type="text" id="userInput" autocomplete="off" placeholder="Ask for your next Instagram post idea..."
+           class="flex-1 bg-slate-800 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600" required />
+    <button type="submit" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-lg font-semibold">
+      Send
+    </button>
+  </form>
+
+<script>
+  const messagesDiv = document.getElementById('messages');
+  const form = document.getElementById('chatForm');
+  const input = document.getElementById('userInput');
+
+  function addMessage(text, role) {
+    const bubble = document.createElement('div');
+    bubble.className = `max-w-lg px-5 py-3 rounded-2xl ${role === 'user' ? 'user-msg' : 'bot-msg'} shadow-md`;
+    bubble.textContent = text;
+    messagesDiv.appendChild(bubble);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const question = input.value.trim();
+    if (!question) return;
+    addMessage(question, 'user');
+    input.value = '';
+
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: question })
+    });
+
+    const data = await res.json();
+    addMessage(data.reply || "Sorry, something went wrong.", 'bot');
+  });
+
+  // Welcome message
+  addMessage("Hey! Tell me what kind of Instagram post you need today (Reels, carousel, story, etc.) and I’ll give you a ready-to-use, high-conversion idea for your paycheck-to-paycheck audience.", 'bot');
+</script>
+</body>
+</html>
