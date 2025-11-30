@@ -31,37 +31,66 @@
   </form>
 
 <script>
-  const messagesDiv = document.getElementById('messages');
-  const form = document.getElementById('chatForm');
-  const input = document.getElementById('userInput');
+let messageHistory = [];
 
-  function addMessage(text, role) {
-    const bubble = document.createElement('div');
-    bubble.className = `max-w-lg px-5 py-3 rounded-2xl ${role === 'user' ? 'user-msg' : 'bot-msg'} shadow-md`;
-    bubble.textContent = text;
-    messagesDiv.appendChild(bubble);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+function addMessage(content, isBot = false) {
+  const chat = document.getElementById('chat');
+  const div = document.createElement('div');
+  div.className = `message ${isBot ? 'bot' : 'user'}`;
+  
+  // 自動加換行同空行，令段落更靚
+  if (isBot) {
+    const formatted = content
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/\n/g, '<br>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/【(.*?)】/g, '<mark>$1</mark>');
+    div.innerHTML = `<p>${formatted}</p>`;
+  } else {
+    div.textContent = content;
   }
+  
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const question = input.value.trim();
-    if (!question) return;
-    addMessage(question, 'user');
-    input.value = '';
-
-    const res = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: question })
-    });
-
-    const data = await res.json();
-    addMessage(data.reply || "Sorry, something went wrong.", 'bot');
+async function sendMessage() {
+  const input = document.getElementById('input');
+  const msg = input.value.trim();
+  if (!msg) return;
+  
+  addMessage(msg, false);
+  input.value = '';
+  
+  // 即刻顯示 Loading
+  const loadingDiv = document.createElement('div');
+  loadingDiv.className = 'message bot loading';
+  loadingDiv.innerHTML = '<p>🤔 諗緊緊… 等我 10 秒呀！</p>';
+  document.getElementById('chat').appendChild(loadingDiv);
+  document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
+  
+  messageHistory.push({ role: 'user', content: msg });
+  
+  const res = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: msg, history: messageHistory })
   });
+  
+  // 刪除 Loading
+  loadingDiv.remove();
+  
+  const data = await res.json();
+  const reply = data.reply || '（系統忙緊，遲啲再試啦）';
+  
+  addMessage(reply, true);
+  messageHistory.push({ role: 'assistant', content: reply });
+}
 
-  // Welcome message
-  addMessage("Hey! Tell me what kind of Instagram post you need today (Reels, carousel, story, etc.) and I’ll give you a ready-to-use, high-conversion idea for your paycheck-to-paycheck audience.", 'bot');
+document.getElementById('input').addEventListener('keypress', e => {
+  if (e.key === 'Enter') sendMessage();
+});
 </script>
 </body>
+
 </html>
