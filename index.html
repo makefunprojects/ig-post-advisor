@@ -16,7 +16,7 @@
     @keyframes pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
     mark { background: #000; color: #FFF; padding: 4px 10px; border-radius: 8px; }
     #chatForm { padding-bottom: env(safe-area-inset-bottom, 20px); }
-    .strategy-option { display: block; margin-bottom: 12px; } /* 確保單選框顯示 */
+    .strategy-option { display: block; margin-bottom: 12px; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -32,7 +32,6 @@
     <div class="max-w-4xl mx-auto space-y-4">
       <h2 class="text-2xl font-black text-center">快速生成 IG 貼文</h2>
       
-      <!-- 背景資料輸入 -->
       <div class="space-y-3">
         <label class="block text-lg font-medium">目標客戶</label>
         <input type="text" id="target" placeholder="例如：28歲月光族OL" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
@@ -48,7 +47,6 @@
         <input type="url" id="url" placeholder="例如：https://example.com" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
       </div>
 
-      <!-- 內容策略單選（修復顯示問題） -->
       <div class="space-y-3">
         <label class="block text-lg font-bold">內容策略（請揀一個）</label>
         <div class="space-y-2">
@@ -155,7 +153,7 @@
       messageHistory.push({ role: 'assistant', content: reply });
     }
 
-    // 表單生成
+    // 表單生成（保留所有輸入）
     generateBtn.addEventListener('click', () => {
       const fields = {
         target: document.getElementById('target').value.trim(),
@@ -177,9 +175,7 @@
       msg += `\n我想用內容策略：${fields.strategy}`;
 
       sendMessage(msg);
-      // 清空表單
-      document.querySelectorAll('#target, #product, #pain, #competitor, #goal, #url').forEach(input => input.value = '');
-      document.querySelectorAll('input[name="strategy"]').forEach(radio => radio.checked = false);
+      // 唔清空表單，保留晒文字同選項
     });
 
     // 原有聊天功能
@@ -195,7 +191,7 @@
 
     // 開場歡迎
     setTimeout(() => {
-      addMessage(`哈囉！我是你嘅 IG Post 顧問\n\n你可以用上面個表單快速生成貼文，或者直接同我傾計都得～\n等緊你呀！`, true);
+      addMessage(`哈囉！我是你嘅 IG Post 顧問\n\n你可以用上面個表單快速生成貼文（填完保留晒資料，方便連續生成），或者直接同我傾計都得～\n等緊你呀！`, true);
     }, 500);
   </script>
 </body>
