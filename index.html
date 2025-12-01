@@ -37,31 +37,55 @@
   </div>
 
   <!-- 內容區域 -->
-  <div id="tab-content" class="flex-1 flex flex-col">
-    <!-- 文案生成（你現有完整功能） -->
-    <section id="generate" class="tab-panel p-6 bg-white flex-1 flex flex-col">
+  <div id="tab-content" class="flex-1 flex flex-col overflow-hidden">
+
+    <!-- 文案生成（完全保留你現有功能） -->
+    <section id="generate" class="tab-panel flex-1 flex flex-col"> -->
+    <section id="generate" class="tab-panel p-4 sm:p-6 bg-white flex-1 flex flex-col">
       <div class="max-w-4xl mx-auto space-y-4 w-full">
         <h2 class="text-2xl font-black text-center">快速生成 IG 貼文</h2>
-        <!-- 你原本嘅完整表單（全部保留） -->
-        <div class="space-y-3">
-          <input type="text" id="target" placeholder="目標客戶（例如：28歲月光族OL）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-          <input type="text" id="product" placeholder="行業／產品（例如：高息儲蓄戶口）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-          <input type="text" id="pain" placeholder="痛點（例如：月尾無錢使）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-          <input type="text" id="competitor" placeholder="競爭對手（例如：普通銀行）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-          <input type="text" id="goal" placeholder="最終目標（例如：每月多$800被動收入）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-          <input type="url" id="url" placeholder="參考網址（可選）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-        </div>
+
+        <input type="text" id="target" placeholder="目標客戶（例如：28歲月光族OL）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+        <input type="text" id="product" placeholder="行業／產品（例如：高息儲蓄戶口）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+        <input type="text" id="pain" placeholder="痛點（例如：月尾無錢使）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+        <input type="text" id="competitor" placeholder="競爭對手（例如：普通銀行）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+        <input type="text" id="goal" placeholder="最終目標（例如：每月多$800被動收入）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+        <input type="url" id="url" placeholder="參考網址（可選）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+
         <div class="space-y-3">
           <label class="block text-lg font-bold">內容策略（請揀一個）</label>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-            ${['品牌故事','成功案例','獨特機制','痛點文','價值炸彈','常犯錯誤','客群內容'].map(s => `
-              <label class="flex items-center gap-3 cursor-pointer">
-                <input type="radio" name="strategy" value="${s}" class="w-6 h-6 border-4 border-black hard-shadow">
-                <span class="font-medium">${s}</span>
-              </label>
-            `).join('')}
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="strategy" value="品牌故事" class="w-6 h-6 border-4 border-black hard-shadow">
+              <span class="font-medium">品牌故事</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="strategy" value="成功案例" class="w-6 h-6 border-4 border-black hard-shadow">
+              <span class="font-medium">成功案例</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="strategy" value="獨特機制" class="w-6 h-6 border-4 border-black hard-shadow">
+              <span class="font-medium">獨特機制</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="strategy" value="痛點文" class="w-6 h-6 border-4 border-black hard-shadow">
+              <span class="font-medium">痛點文</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="strategy" value="價值炸彈" class="w-6 h-6 border-4 border-black hard-shadow">
+              <span class="font-medium">價值炸彈</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="strategy" value="常犯錯誤" class="w-6 h-6 border-4 border-black hard-shadow">
+              <span class="font-medium">常犯錯誤</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="strategy" value="客群內容" class="w-6 h-6 border-4 border-black hard-shadow">
+              <span class="font-medium">客群內容</span>
+            </label>
           </div>
         </div>
+
         <button id="generateBtn" class="w-full py-5 bg-black text-white font-black text-xl rounded-3xl border-4 border-black hard-shadow hover:hard-shadow-pressed transition">
           生成 IG 貼文
         </button>
@@ -86,7 +110,7 @@
       </div>
     </section>
 
-    <!-- 聊天室區域（所有功能共用） -->
+    <!-- 聊天室區域 -->
     <main id="messages" class="flex-1 overflow-y-auto px-4 pt-6 pb-2 bg-[#F3F4F6] space-y-5"></main>
 
     <!-- 原有輸入框 -->
@@ -110,7 +134,7 @@
         });
       });
 
-      // 你原本所有 JS 邏輯（文案生成 + 聊天室）完全保留
+      // 你原本所有 JS 邏輯（完全保留）
       const messagesDiv = document.getElementById('messages');
       const chatForm = document.getElementById('chatForm');
       const userInput = document.getElementById('userInput');
@@ -126,7 +150,11 @@
         const div = document.createElement('div');
         div.className = `hard-shadow p-5 sm:p-6 rounded-3xl border-4 border-black max-w-full sm:max-w-2xl ${isBot ? 'bg-white' : 'bg-black text-white ml-auto'}`;
         if (isBot) {
-          const formatted = content.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/【(.*?)】/g, '<mark>$1</mark>');
+          const formatted = content
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n/g, '<br>')
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/【(.*?)】/g, '<mark>$1</mark>');
           div.innerHTML = `<p class="text-base sm:text-lg leading-relaxed">${formatted}</p>`;
         } else {
           div.innerHTML = `<p class="text-base sm:text-lg font-bold text-right leading-relaxed">${content}</p>`;
@@ -191,6 +219,7 @@
         }
       });
 
+      // 開場歡迎
       setTimeout(() => {
         addMessage(`哈囉！我是你嘅 IG Post 顧問\n\n而家有 3 個功能畀你揀～\n等緊你呀！`, true);
       }, 500);
