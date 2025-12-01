@@ -2,7 +2,7 @@
 <html lang="zh-HK">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="width=device-width, initial-scale=1.0"/>
   <title>IG Post 顧問 | 高轉化貼文神器</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,8 +13,6 @@
     .hard-shadow { box-shadow: 6px 6px 0px 0px #000000; }
     .hard-shadow-pressed { box-shadow: 3px 3px 0px 0px #000000; }
     .tab-active { background: #000; color: #FFF; }
-    .loading p { color: #666; font-style: italic; animation: pulse 1.8s infinite; }
-    @keyframes pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
     mark { background: #000; color: #FFF; padding: 4px 10px; border-radius: 8px; }
     #chatForm { padding-bottom: env(safe-area-inset-bottom, 20px); }
   </style>
@@ -41,7 +39,6 @@
 
     <!-- 文案生成 -->
     <section id="generate" class="tab-panel p-4 sm:p-6 bg-white flex-1 flex flex-col">
-      <!-- （你原本完整表單，100% 保留） -->
       <div class="max-w-4xl mx-auto space-y-4 w-full">
         <h2 class="text-2xl font-black text-center">快速生成 IG 貼文</h2>
         <input type="text" id="target" placeholder="目標客戶">
@@ -72,7 +69,6 @@
 
     <!-- 文案改善／審核 -->
     <section id="review" class="tab-panel p-6 bg-white flex-1 hidden">
-      <!-- （你之前已有的真正運作版） -->
       <div class="max-w-4xl mx-auto space-y-6">
         <h2 class="text-3xl font-black text-center">文案改善／審核</h2>
         <p class="text-center text-lg">貼你或者你客戶寫好嘅文案入嚟，我會逐句分析 + 畀改進版</p>
@@ -83,22 +79,19 @@
       </div>
     </section>
 
-    <!-- Caption + Hashtag（全新真正運作！） -->
+    <!-- Caption + Hashtag -->
     <section id="caption" class="tab-panel p-6 bg-white flex-1 hidden">
       <div class="max-w-4xl mx-auto space-y-8">
         <h2 class="text-3xl font-black text-center">Caption + Hashtag 一鍵生成</h2>
 
-        <!-- 方式1：用之前資料 -->
         <div class="text-center">
           <button id="captionFromFormBtn" class="px-10 py-5 bg-black text-white font-black text-xl rounded-3xl border-4 border-black hard-shadow hover:hard-shadow-pressed transition">
             用之前填嘅資料生成 2 組 Caption
           </button>
-          <p class="mt-4 text-gray-600">（會自動用「文案生成」欄位嘅資料）</p>
         </div>
 
         <div class="text-center text-2xl font-bold my-8">或者</div>
 
-        <!-- 方式2：貼完整文案 -->
         <div class="space-y-4">
           <label class="block text-lg font-bold text-center">貼完整文案生成 Caption</label>
           <textarea id="captionText" rows="8" placeholder="貼你寫好嘅完整文案入嚟…" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition text-base"></textarea>
@@ -112,7 +105,7 @@
     <!-- 聊天室 -->
     <main id="messages" class="flex-1 overflow-y-auto px-4 pt-6 pb-2 bg-[#F3F4F6] space-y-5"></main>
 
-    <!-- 原有輸入框 -->
+    <!-- 底部輸入框 -->
     <form id="chatForm" class="bg-white border-t-4 border-black hard-shadow">
       <div class="p-4 max-w-5xl mx-auto">
         <div class="flex flex-col sm:flex-row gap-3">
@@ -133,6 +126,7 @@
         });
       });
 
+      // 變數
       const messagesDiv = document.getElementById('messages');
       const chatForm = document.getElementById('chatForm');
       const userInput = document.getElementById('userInput');
@@ -142,16 +136,26 @@
       const captionFromTextBtn = document.getElementById('captionFromTextBtn');
       let messageHistory = [];
 
-      userInput.addEventListener('input', function () {
-        this.style.height = 'auto';
-        this.style.height = this.scrollHeight + 'px';
-      });
+      // 超靚 loading 思考過程（0 token 成本）
+      const THINKING_STEPS = [
+        "分析目標客戶心理…",
+        "搵緊最痛嘅痛點…",
+        "配緊最爆成功案例…",
+        "度身訂造獨特機制…",
+        "寫緊結尾超強 CTA…",
+        "加緊最佳 Hashtag 組合…",
+        "準備送出！"
+      ];
 
       function addMessage(content, isBot = false) {
         const div = document.createElement('div');
         div.className = `hard-shadow p-5 sm:p-6 rounded-3xl border-4 border-black max-w-full sm:max-w-2xl ${isBot ? 'bg-white' : 'bg-black text-white ml-auto'}`;
         if (isBot) {
-          const formatted = content.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/【(.*?)】/g, '<mark>$1</mark>');
+          const formatted = content
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n/g, '<br>')
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/【(.*?)】/g, '<mark>$1</mark>');
           div.innerHTML = `<p class="text-base sm:text-lg leading-relaxed">${formatted}</p>`;
         } else {
           div.innerHTML = `<p class="text-base sm:text-lg font-bold text-right leading-relaxed">${content}</p>`;
@@ -162,23 +166,38 @@
 
       async function sendMessage(msg) {
         addMessage(msg, false);
-        const loading = document.createElement('div');
-        loading.className = 'hard-shadow p-5 rounded-3xl border-4 border-black bg-white max-w-full sm:max-w-2xl loading';
-        loading.innerHTML = '<p>諗緊緊… 等我 10 秒呀！</p>';
-        messagesDiv.appendChild(loading);
+
+        // 超靚 loading 動畫
+        const loadingBox = document.createElement('div');
+        loadingBox.className = 'hard-shadow p-6 rounded-3xl border-4 border-black bg-white max-w-full sm:max-w-2xl';
+        loadingBox.innerHTML = `
+          <p class="font-bold text-lg mb-4">正在幫你生成高轉化貼文…</p>
+          <div class="space-y-3 text-base"></div>
+        `;
+        const stepsDiv = loadingBox.querySelector('div');
+        messagesDiv.appendChild(loadingBox);
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
-        messageHistory.push({ role: 'user', content: msg });
+        // 逐句顯示思考過程
+        for (let i = 0; i < THINKING_STEPS.length; i++) {
+          const step = document.createElement('p');
+          step.innerHTML = THINKING_STEPS[i];
+          stepsDiv.appendChild(step);
+          messagesDiv.scrollTop = messagesDiv.scrollHeight;
+          await new Promise(r => setTimeout(r, 1400 + Math.random() * 600));
+        }
 
+        // 真正發送
+        messageHistory.push({ role: 'user', content: msg });
         const res = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: msg, history: messageHistory })
         });
 
-        loading.remove();
+        loadingBox.remove();
         const data = await res.json();
-        const reply = data.reply || '（系統忙緊，遲啲再試啦）';
+        const reply = data.reply || '（生成失敗，再試多次啦）';
         addMessage(reply, true);
         messageHistory.push({ role: 'assistant', content: reply });
       }
@@ -214,7 +233,7 @@
         sendMessage(`請幫我專業審核呢段 IG 文案，逐句分析轉化率問題，並畀出完整改進版（600+字）:\n\n${text}`);
       });
 
-      // Caption 方式1：用之前資料
+      // Caption 方式1
       captionFromFormBtn.addEventListener('click', () => {
         const fields = {
           target: document.getElementById('target').value.trim(),
@@ -224,7 +243,7 @@
           goal: document.getElementById('goal').value.trim()
         };
         if (!fields.target || !fields.product) return alert('請至少填目標客戶同行業／產品！');
-        sendMessage(`請根據以下資料，生成 2 組不同風格、每組約 300 字嘅高轉化 Caption（每組結尾要配好 10–12 個精準 hashtag）：
+        sendMessage(`請根據以下資料，生成 2 組不同風格、每組約 300 字嘅高轉化 Caption（每組結尾配好 10–12 個精準 hashtag）：
 目標客戶：${fields.target}
 行業／產品：${fields.product}
 痛點：${fields.pain}
@@ -232,15 +251,15 @@
 最終目標：${fields.goal}`);
       });
 
-      // Caption 方式2：貼文案
+      // Caption 方式2
       captionFromTextBtn.addEventListener('click', () => {
         const text = document.getElementById('captionText').value.trim();
         if (!text) return alert('請貼入完整文案！');
-        sendMessage(`請將以下完整文案濃縮成 2 組不同風格、每組約 300 字嘅高轉化 Caption（要保留所有關鍵詞，並喺每組結尾配好 10–12 個精準 hashtag）：
+        sendMessage(`請將以下完整文案濃縮成 2 組不同風格、每組約 300 字嘅高轉化 Caption（保留關鍵詞＋結尾配好 hashtag）：
 \n\n${text}`);
       });
 
-      // 原有聊天
+      // 聊天框
       chatForm.addEventListener('submit', e => {
         e.preventDefault();
         const msg = userInput.value.trim();
@@ -251,6 +270,7 @@
         }
       });
 
+      // 開場
       setTimeout(() => {
         addMessage(`哈囉！我是你嘅 IG Post 顧問\n\n而家有 3 大功能畀你用～\n等緊你呀！`, true);
       }, 500);
