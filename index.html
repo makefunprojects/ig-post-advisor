@@ -39,12 +39,11 @@
   <!-- 內容區域 -->
   <div id="tab-content" class="flex-1 flex flex-col overflow-hidden">
 
-    <!-- 文案生成（完全保留你現有功能） -->
-<!-- 文案生成（完全保留你現有功能） -->
+    <!-- 文案生成 -->
     <section id="generate" class="tab-panel p-4 sm:p-6 bg-white flex-1 flex flex-col">
       <div class="max-w-4xl mx-auto space-y-4 w-full">
         <h2 class="text-2xl font-black text-center">快速生成 IG 貼文</h2>
-
+        <!-- 你原本完整表單（全部保留） -->
         <input type="text" id="target" placeholder="目標客戶（例如：28歲月光族OL）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
         <input type="text" id="product" placeholder="行業／產品（例如：高息儲蓄戶口）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
         <input type="text" id="pain" placeholder="痛點（例如：月尾無錢使）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
@@ -55,34 +54,13 @@
         <div class="space-y-3">
           <label class="block text-lg font-bold">內容策略（請揀一個）</label>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <label class="flex items-center gap-3 cursor-pointer">
-              <input type="radio" name="strategy" value="品牌故事" class="w-6 h-6 border-4 border-black hard-shadow">
-              <span class="font-medium">品牌故事</span>
-            </label>
-            <label class="flex items-center gap-3 cursor-pointer">
-              <input type="radio" name="strategy" value="成功案例" class="w-6 h-6 border-4 border-black hard-shadow">
-              <span class="font-medium">成功案例</span>
-            </label>
-            <label class="flex items-center gap-3 cursor-pointer">
-              <input type="radio" name="strategy" value="獨特機制" class="w-6 h-6 border-4 border-black hard-shadow">
-              <span class="font-medium">獨特機制</span>
-            </label>
-            <label class="flex items-center gap-3 cursor-pointer">
-              <input type="radio" name="strategy" value="痛點文" class="w-6 h-6 border-4 border-black hard-shadow">
-              <span class="font-medium">痛點文</span>
-            </label>
-            <label class="flex items-center gap-3 cursor-pointer">
-              <input type="radio" name="strategy" value="價值炸彈" class="w-6 h-6 border-4 border-black hard-shadow">
-              <span class="font-medium">價值炸彈</span>
-            </label>
-            <label class="flex items-center gap-3 cursor-pointer">
-              <input type="radio" name="strategy" value="常犯錯誤" class="w-6 h-6 border-4 border-black hard-shadow">
-              <span class="font-medium">常犯錯誤</span>
-            </label>
-            <label class="flex items-center gap-3 cursor-pointer">
-              <input type="radio" name="strategy" value="客群內容" class="w-6 h-6 border-4 border-black hard-shadow">
-              <span class="font-medium">客群內容</span>
-            </label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="品牌故事" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">品牌故事</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="成功案例" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">成功案例</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="獨特機制" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">獨特機制</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="痛點文" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">痛點文</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="價值炸彈" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">價值炸彈</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="常犯錯誤" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">常犯錯誤</span></label>
+            <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="客群內容" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">客群內容</span></label>
           </div>
         </div>
 
@@ -92,16 +70,19 @@
       </div>
     </section>
 
-    <!-- 文案改善／審核（暫時 demo） -->
+    <!-- 文案改善／審核（真正運作！） -->
     <section id="review" class="tab-panel p-6 bg-white flex-1 hidden">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl font-black mb-8">文案改善／審核（即將推出）</h2>
-        <p class="text-xl mb-8">貼你客戶寫好嘅文案入嚟，我會幫你逐句改到最高轉化率！</p>
-        <div class="bg-gray-200 border-4 border-dashed rounded-3xl w-full h-64"></div>
+      <div class="max-w-4xl mx-auto space-y-6">
+        <h2 class="text-3xl font-black text-center">文案改善／審核</h2>
+        <p class="text-center text-lg">貼你或者你客戶寫好嘅 IG 文案入嚟，我會逐句分析 + 畀你改進版（保證轉化率上升）</p>
+        <textarea id="reviewText" rows="10" placeholder="貼你嘅文案入嚟…" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition text-base"></textarea>
+        <button id="reviewBtn" class="w-full py-5 bg-black text-white font-black text-xl rounded-3xl border-4 border-black hard-shadow hover:hard-shadow-pressed transition">
+          開始審核
+        </button>
       </div>
     </section>
 
-    <!-- Caption + Hashtag（暫時 demo） -->
+    <!-- Caption + Hashtag（仍然 demo） -->
     <section id="caption" class="tab-panel p-6 bg-white flex-1 hidden">
       <div class="max-w-4xl mx-auto text-center">
         <h2 class="text-3xl font-black mb-8">Caption + Hashtag 一鍵生成（即將推出）</h2>
@@ -134,11 +115,11 @@
         });
       });
 
-      // 你原本所有 JS 邏輯（完全保留）
       const messagesDiv = document.getElementById('messages');
       const chatForm = document.getElementById('chatForm');
       const userInput = document.getElementById('userInput');
       const generateBtn = document.getElementById('generateBtn');
+      const reviewBtn = document.getElementById('reviewBtn');
       let messageHistory = [];
 
       userInput.addEventListener('input', function () {
@@ -150,11 +131,7 @@
         const div = document.createElement('div');
         div.className = `hard-shadow p-5 sm:p-6 rounded-3xl border-4 border-black max-w-full sm:max-w-2xl ${isBot ? 'bg-white' : 'bg-black text-white ml-auto'}`;
         if (isBot) {
-          const formatted = content
-            .replace(/\n\n/g, '</p><p>')
-            .replace(/\n/g, '<br>')
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/【(.*?)】/g, '<mark>$1</mark>');
+          const formatted = content.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/【(.*?)】/g, '<mark>$1</mark>');
           div.innerHTML = `<p class="text-base sm:text-lg leading-relaxed">${formatted}</p>`;
         } else {
           div.innerHTML = `<p class="text-base sm:text-lg font-bold text-right leading-relaxed">${content}</p>`;
@@ -186,6 +163,7 @@
         messageHistory.push({ role: 'assistant', content: reply });
       }
 
+      // 文案生成
       generateBtn.addEventListener('click', () => {
         const fields = {
           target: document.getElementById('target').value.trim(),
@@ -209,6 +187,17 @@
         sendMessage(msg);
       });
 
+      // 文案改善（真正運作！）
+      reviewBtn.addEventListener('click', () => {
+        const text = document.getElementById('reviewText').value.trim();
+        if (!text) {
+          alert('請貼入你要審核嘅文案！');
+          return;
+        }
+        sendMessage(`請幫我專業審核呢段 IG 文案，逐句分析轉化率問題，並畀出完整改進版（600+字）:\n\n${text}`);
+      });
+
+      // 原有聊天
       chatForm.addEventListener('submit', e => {
         e.preventDefault();
         const msg = userInput.value.trim();
@@ -219,11 +208,10 @@
         }
       });
 
-      // 開場歡迎
+      // 開場
       setTimeout(() => {
         addMessage(`哈囉！我是你嘅 IG Post 顧問\n\n而家有 3 個功能畀你揀～\n等緊你呀！`, true);
       }, 500);
     </script>
 </body>
 </html>
-
