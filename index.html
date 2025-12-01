@@ -4,11 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>IG Post 顧問 | 高轉化貼文神器</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;500;700;900&display=swap" rel="stylesheet">
-
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { font-family: 'Noto Sans HK', sans-serif; background: #FFFFFF; color: #000000; }
@@ -17,7 +15,6 @@
     .loading p { color: #666; font-style: italic; animation: pulse 1.8s infinite; }
     @keyframes pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
     mark { background: #000; color: #FFF; padding: 4px 10px; border-radius: 8px; }
-    /* 解決 iPhone 底部被瀏覽器 bar 遮擋 */
     #chatForm { padding-bottom: env(safe-area-inset-bottom, 20px); }
   </style>
 </head>
@@ -29,30 +26,47 @@
     <p class="text-lg font-medium">高轉化 IG 貼文即刻生成</p>
   </header>
 
-  <!-- Messages -->
+  <!-- 表單區域 -->
+  <section class="p-6 bg-white hard-shadow border-b-4 border-black">
+    <div class="max-w-4xl mx-auto space-y-5">
+      <h2 class="text-2xl font-black text-center">快速生成 IG 貼文</h2>
+      
+      <div class="grid md:grid-cols-2 gap-4">
+        <input type="text" id="target" placeholder="目標客戶（例如：28歲月光族OL）" class="px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+        <input type="text" id="product" placeholder="行業／產品（例如：高息儲蓄戶口）" class="px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+        <input type="text" id="pain" placeholder="痛點（例如：月尾無錢使）" class="px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+        <input type="text" id="competitor" placeholder="競爭對手（例如：普通銀行）" class="px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+        <input type="text" id="goal" placeholder="最終目標（例如：每月多$800被動收入）" class="px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition md:col-span-2">
+        <input type="text" id="url" placeholder="參考網址（可選）" class="px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition md:col-span-2">
+      </div>
+
+      <div class="space-y-3">
+        <p class="font-bold text-center">選擇內容策略：</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          ${['品牌故事','成功案例','獨特機制','痛點文','價值炸彈','常犯錯誤','客群內容'].map(s => `
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="strategy" value="${s}" class="w-6 h-6 border-4 border-black hard-shadow">
+              <span class="font-medium">${s}</span>
+            </label>
+          `).join('')}
+        </div>
+      </div>
+
+      <button id="generateBtn" class="w-full py-5 bg-black text-white font-black text-xl rounded-3xl border-4 border-black hard-shadow hover:hard-shadow-pressed transition">
+        生成 IG 貼文
+      </button>
+    </div>
+  </section>
+
+  <!-- 聊天室區域 -->
   <main id="messages" class="flex-1 overflow-y-auto px-4 pt-6 pb-2 bg-[#F3F4F6] space-y-5"></main>
 
-  <!-- Input Form -->
+  <!-- 原有輸入框 -->
   <form id="chatForm" class="bg-white border-t-4 border-black hard-shadow">
     <div class="p-4 max-w-5xl mx-auto">
       <div class="flex flex-col sm:flex-row gap-3">
-        <!-- 可多行輸入框 -->
-        <textarea 
-          id="userInput" 
-          rows="1"
-          placeholder="例如：28歲月光族OL，想推高息儲蓄戶口，痛點係月尾無錢，目標每月多$800…"
-          class="flex-1 px-6 py-4 text-base sm:text-lg border-4 border-black rounded-3xl resize-none focus:outline-none focus:hard-shadow-pressed transition-all min-h-12 max-h-32"
-          style="field-sizing: content;"
-          required
-        ></textarea>
-
-        <!-- 傳送掣永遠見到 -->
-        <button 
-          type="submit"
-          class="px-8 py-4 bg-black text-white font-black text-lg sm:text-xl rounded-3xl border-4 border-black hard-shadow hover:hard-shadow-pressed active:hard-shadow-pressed transition-all whitespace-nowrap"
-        >
-          傳送
-        </button>
+        <textarea id="userInput" rows="1" placeholder="或者直接同我傾計…" class="flex-1 px-6 py-4 text-base sm:text-lg border-4 border-black rounded-3xl resize-none focus:outline-none focus:hard-shadow-pressed transition-all min-h-12 max-h-32" style="field-sizing: content;"></textarea>
+        <button type="submit" class="px-8 py-4 bg-black text-white font-black text-lg sm:text-xl rounded-3xl border-4 border-black hard-shadow hover:hard-shadow-pressed transition-all whitespace-nowrap">傳送</button>
       </div>
     </div>
   </form>
@@ -61,9 +75,10 @@
     const messagesDiv = document.getElementById('messages');
     const chatForm = document.getElementById('chatForm');
     const userInput = document.getElementById('userInput');
+    const generateBtn = document.getElementById('generateBtn');
     let messageHistory = [];
 
-    // 自動調整 textarea 高度
+    // 自動調整高度
     userInput.addEventListener('input', function () {
       this.style.height = 'auto';
       this.style.height = this.scrollHeight + 'px';
@@ -72,30 +87,18 @@
     function addMessage(content, isBot = false) {
       const div = document.createElement('div');
       div.className = `hard-shadow p-5 sm:p-6 rounded-3xl border-4 border-black max-w-full sm:max-w-2xl ${isBot ? 'bg-white' : 'bg-black text-white ml-auto'}`;
-
       if (isBot) {
-        const formatted = content
-          .replace(/\n\n/g, '</p><p>')
-          .replace(/\n/g, '<br>')
-          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-          .replace(/【(.*?)】/g, '<mark>$1</mark>');
+        const formatted = content.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/【(.*?)】/g, '<mark>$1</mark>');
         div.innerHTML = `<p class="text-base sm:text-lg leading-relaxed">${formatted}</p>`;
       } else {
         div.innerHTML = `<p class="text-base sm:text-lg font-bold text-right leading-relaxed">${content}</p>`;
       }
-
       messagesDiv.appendChild(div);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
-    async function sendMessage() {
-      const msg = userInput.value.trim();
-      if (!msg) return;
-
+    async function sendMessage(msg) {
       addMessage(msg, false);
-      userInput.value = '';
-      userInput.style.height = 'auto';
-
       const loading = document.createElement('div');
       loading.className = 'hard-shadow p-5 rounded-3xl border-4 border-black bg-white max-w-full sm:max-w-2xl loading';
       loading.innerHTML = '<p>諗緊緊… 等我 10 秒呀！</p>';
@@ -113,34 +116,48 @@
       loading.remove();
       const data = await res.json();
       const reply = data.reply || '（系統忙緊，遲啲再試啦）';
-
       addMessage(reply, true);
       messageHistory.push({ role: 'assistant', content: reply });
     }
 
-    chatForm.addEventListener('submit', e => {
-      e.preventDefault();
-      sendMessage();
+    // 表單生成
+    generateBtn.addEventListener('click', () => {
+      const fields = {
+        target: document.getElementById('target').value.trim(),
+        product: document.getElementById('product').value.trim(),
+        pain: document.getElementById('pain').value.trim(),
+        competitor: document.getElementById('competitor').value.trim(),
+        goal: document.getElementById('goal').value.trim(),
+        url: document.getElementById('url').value.trim(),
+        strategy: document.querySelector('input[name="strategy"]:checked')?.value
+      };
+
+      if (!fields.target || !fields.product || !fields.pain || !fields.competitor || !fields.goal || !fields.strategy) {
+        alert('請填晒所有必填項目同揀一個內容策略！');
+        return;
+      }
+
+      let msg = `目標客戶：${fields.target}\n行業／產品：${fields.product}\n痛點：${fields.pain}\n競爭對手：${fields.competitor}\n最終目標：${fields.goal}`;
+      if (fields.url) msg += `\n參考網址：${fields.url}`;
+      msg += `\n我想用內容策略：${fields.strategy}`;
+
+      sendMessage(msg);
     });
 
-    // 開場歡迎
+    // 原有聊天功能
+    chatForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const msg = userInput.value.trim();
+      if (msg) {
+        sendMessage(msg);
+        userInput.value = '';
+        userInput.style.height = 'auto';
+      }
+    });
+
+    // 開場
     setTimeout(() => {
-      addMessage(`
-哈囉！我是你嘅 IG Post 顧問
-
-今日想整咩類型嘅貼文呀？
-
-直接畀我以下 5 樣資料，我就即刻幫你整超高轉化嘅 IG 帖文！
-
-目標客戶（例如：28歲月光族OL）
-行業／產品（例如：高息儲蓄戶口）
-痛點（例如：月尾無錢使）
-競爭對手（例如：普通銀行）
-最終目標（例如：每月多$800被動收入）
-
-有網址都可以畀我研究～
-
-等緊你呀！`, true);
+      addMessage(`哈囉！我是你嘅 IG Post 顧問\n\n你可以用上面個表單快速生成貼文，或者直接同我傾計都得～\n等緊你呀！`, true);
     }, 500);
   </script>
 </body>
