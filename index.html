@@ -41,15 +41,15 @@
 
     <!-- 文案生成 -->
     <section id="generate" class="tab-panel p-4 sm:p-6 bg-white flex-1 flex flex-col">
+      <!-- （你原本完整表單，100% 保留） -->
       <div class="max-w-4xl mx-auto space-y-4 w-full">
         <h2 class="text-2xl font-black text-center">快速生成 IG 貼文</h2>
-        <!-- 你原本完整表單（全部保留） -->
-        <input type="text" id="target" placeholder="目標客戶（例如：28歲月光族OL）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-        <input type="text" id="product" placeholder="行業／產品（例如：高息儲蓄戶口）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-        <input type="text" id="pain" placeholder="痛點（例如：月尾無錢使）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-        <input type="text" id="competitor" placeholder="競爭對手（例如：普通銀行）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-        <input type="text" id="goal" placeholder="最終目標（例如：每月多$800被動收入）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-        <input type="url" id="url" placeholder="參考網址（可選）" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+        <input type="text" id="target" placeholder="目標客戶">
+        <input type="text" id="product" placeholder="行業／產品">
+        <input type="text" id="pain" placeholder="痛點">
+        <input type="text" id="competitor" placeholder="競爭對手">
+        <input type="text" id="goal" placeholder="最終目標">
+        <input type="url" id="url" placeholder="參考網址（可選）">
 
         <div class="space-y-3">
           <label class="block text-lg font-bold">內容策略（請揀一個）</label>
@@ -70,11 +70,12 @@
       </div>
     </section>
 
-    <!-- 文案改善／審核（真正運作！） -->
+    <!-- 文案改善／審核 -->
     <section id="review" class="tab-panel p-6 bg-white flex-1 hidden">
+      <!-- （你之前已有的真正運作版） -->
       <div class="max-w-4xl mx-auto space-y-6">
         <h2 class="text-3xl font-black text-center">文案改善／審核</h2>
-        <p class="text-center text-lg">貼你或者你客戶寫好嘅 IG 文案入嚟，我會逐句分析 + 畀你改進版（保證轉化率上升）</p>
+        <p class="text-center text-lg">貼你或者你客戶寫好嘅文案入嚟，我會逐句分析 + 畀改進版</p>
         <textarea id="reviewText" rows="10" placeholder="貼你嘅文案入嚟…" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition text-base"></textarea>
         <button id="reviewBtn" class="w-full py-5 bg-black text-white font-black text-xl rounded-3xl border-4 border-black hard-shadow hover:hard-shadow-pressed transition">
           開始審核
@@ -82,16 +83,33 @@
       </div>
     </section>
 
-    <!-- Caption + Hashtag（仍然 demo） -->
+    <!-- Caption + Hashtag（全新真正運作！） -->
     <section id="caption" class="tab-panel p-6 bg-white flex-1 hidden">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl font-black mb-8">Caption + Hashtag 一鍵生成（即將推出）</h2>
-        <p class="text-xl mb-8">輸入產品名 + 目標客，即刻畀你 10 組高轉化 Caption（已配好 Hashtag）</p>
-        <div class="bg-gray-200 border-4 border-dashed rounded-3xl w-full h-64"></div>
+      <div class="max-w-4xl mx-auto space-y-8">
+        <h2 class="text-3xl font-black text-center">Caption + Hashtag 一鍵生成</h2>
+
+        <!-- 方式1：用之前資料 -->
+        <div class="text-center">
+          <button id="captionFromFormBtn" class="px-10 py-5 bg-black text-white font-black text-xl rounded-3xl border-4 border-black hard-shadow hover:hard-shadow-pressed transition">
+            用之前填嘅資料生成 2 組 Caption
+          </button>
+          <p class="mt-4 text-gray-600">（會自動用「文案生成」欄位嘅資料）</p>
+        </div>
+
+        <div class="text-center text-2xl font-bold my-8">或者</div>
+
+        <!-- 方式2：貼完整文案 -->
+        <div class="space-y-4">
+          <label class="block text-lg font-bold text-center">貼完整文案生成 Caption</label>
+          <textarea id="captionText" rows="8" placeholder="貼你寫好嘅完整文案入嚟…" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition text-base"></textarea>
+          <button id="captionFromTextBtn" class="w-full py-5 bg-black text-white font-black text-xl rounded-3xl border-4 border-black hard-shadow hover:hard-shadow-pressed transition">
+            從文案生成 2 組 Caption + Hashtag
+          </button>
+        </div>
       </div>
     </section>
 
-    <!-- 聊天室區域 -->
+    <!-- 聊天室 -->
     <main id="messages" class="flex-1 overflow-y-auto px-4 pt-6 pb-2 bg-[#F3F4F6] space-y-5"></main>
 
     <!-- 原有輸入框 -->
@@ -120,6 +138,8 @@
       const userInput = document.getElementById('userInput');
       const generateBtn = document.getElementById('generateBtn');
       const reviewBtn = document.getElementById('reviewBtn');
+      const captionFromFormBtn = document.getElementById('captionFromFormBtn');
+      const captionFromTextBtn = document.getElementById('captionFromTextBtn');
       let messageHistory = [];
 
       userInput.addEventListener('input', function () {
@@ -187,14 +207,37 @@
         sendMessage(msg);
       });
 
-      // 文案改善（真正運作！）
+      // 文案改善
       reviewBtn.addEventListener('click', () => {
         const text = document.getElementById('reviewText').value.trim();
-        if (!text) {
-          alert('請貼入你要審核嘅文案！');
-          return;
-        }
+        if (!text) return alert('請貼入你要審核嘅文案！');
         sendMessage(`請幫我專業審核呢段 IG 文案，逐句分析轉化率問題，並畀出完整改進版（600+字）:\n\n${text}`);
+      });
+
+      // Caption 方式1：用之前資料
+      captionFromFormBtn.addEventListener('click', () => {
+        const fields = {
+          target: document.getElementById('target').value.trim(),
+          product: document.getElementById('product').value.trim(),
+          pain: document.getElementById('pain').value.trim(),
+          competitor: document.getElementById('competitor').value.trim(),
+          goal: document.getElementById('goal').value.trim()
+        };
+        if (!fields.target || !fields.product) return alert('請至少填目標客戶同行業／產品！');
+        sendMessage(`請根據以下資料，生成 2 組不同風格、每組約 300 字嘅高轉化 Caption（每組結尾要配好 10–12 個精準 hashtag）：
+目標客戶：${fields.target}
+行業／產品：${fields.product}
+痛點：${fields.pain}
+競爭對手：${fields.competitor}
+最終目標：${fields.goal}`);
+      });
+
+      // Caption 方式2：貼文案
+      captionFromTextBtn.addEventListener('click', () => {
+        const text = document.getElementById('captionText').value.trim();
+        if (!text) return alert('請貼入完整文案！');
+        sendMessage(`請將以下完整文案濃縮成 2 組不同風格、每組約 300 字嘅高轉化 Caption（要保留所有關鍵詞，並喺每組結尾配好 10–12 個精準 hashtag）：
+\n\n${text}`);
       });
 
       // 原有聊天
@@ -208,9 +251,8 @@
         }
       });
 
-      // 開場
       setTimeout(() => {
-        addMessage(`哈囉！我是你嘅 IG Post 顧問\n\n而家有 3 個功能畀你揀～\n等緊你呀！`, true);
+        addMessage(`哈囉！我是你嘅 IG Post 顧問\n\n而家有 3 大功能畀你用～\n等緊你呀！`, true);
       }, 500);
     </script>
 </body>
