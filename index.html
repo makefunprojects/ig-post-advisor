@@ -9,22 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;500;700;900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-  body { font-family: 'Noto Sans HK', sans-serif; background: #FFFFFF; color: #000000; }
-  .hard-shadow { box-shadow: 6px 6px 0px 0px #000000; }
-  .hard-shadow-pressed { box-shadow: 3px 3px 0px 0px #000000; }
-  .tab-active { background: #000; color: #FFF; }
-  mark { background: #000; color: #FFF; padding: 4px 10px; border-radius: 8px; }
-  #chatForm { padding-bottom: env(safe-area-inset-bottom, 20px); }
-
-  /* 方案 A：Helper text focus 時淡入 + 輸入框更好看 */
-  .peer:focus ~ p {
-    opacity: 1 !important;
-  }
-  .peer:focus {
-    background: #f8f8ff;
-    box-shadow: inset 0 4px 12px rgba(0,0,0,0.08);
-  }
-</style>
     body { font-family: 'Noto Sans HK', sans-serif; background: #FFFFFF; color: #000000; }
     .hard-shadow { box-shadow: 6px 6px 0px 0px #000000; }
     .hard-shadow-pressed { box-shadow: 3px 3px 0px 0px #000000; }
@@ -55,58 +39,50 @@
 
    <!-- 文案生成（已加入 Helper text + 紅星 + 更好 placeholder） -->
 <section id="generate" class="tab-panel p-4 sm:p-6 bg-white flex-1 flex flex-col">
-  <div class="max-w-4xl mx-auto space-y-5 w-full">
-  <h2 class="text-2xl font-black text-center">快速生成 IG 貼文</h2>
+  <div class="max-w-4xl mx-auto space-y-6 w-full">
+    <h2 class="text-2xl font-black text-center">快速生成 IG 貼文</h2>
 
-  <!-- 每個輸入框縮短 + Helper text focus 時顯示 -->
-  <div class="relative">
-    <label class="block text-lg font-black mb-1">目標客戶 <span class="text-red-500">*</span></label>
-    <input type="text" id="target" placeholder="例如：28歲月光族OL" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition peer">
-    <p class="text-xs text-gray-500 mt-1 opacity-0 peer-focus:opacity-100 transition-opacity duration-200">
-      例如：28歲月光族OL、35歲中產爸爸、50歲保險從業員
-    </p>
-  </div>
+    <!-- 目標客戶 -->
+    <div>
+      <label class="block text-lg font-black mb-2">目標客戶 <span class="text-red-500">*</span></label>
+      <input type="text" id="target" placeholder="例如：28歲月光族OL" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+      <p class="text-sm text-gray-500 mt-2">例如：28歲月光族OL、35歲中產爸爸、50歲保險從業員</p>
+    </div>
 
-  <div class="relative">
-    <label class="block text-lg font-black mb-1">行業／產品 <span class="text-red-500">*</span></label>
-    <input type="text" id="product" placeholder="例如：高息儲蓄戶口" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition peer">
-    <p class="text-xs text-gray-500 mt-1 opacity-0 peer-focus:opacity-100 transition-opacity duration-200">
-      你想推銷嘅產品或服務，例如：保險、健身課程、占卜
-    </p>
-  </div>
+    <!-- 行業／產品 -->
+    <div>
+      <label class="block text-lg font-black mb-2">行業／產品 <span class="text-red-500">*</span></label>
+      <input type="text" id="product" placeholder="例如：高息儲蓄戶口" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+      <p class="text-sm text-gray-500 mt-2">你想推銷嘅產品或服務，例如：保險、健身課程、占卜</p>
+    </div>
 
-  <div class="relative">
-    <label class="block text-lg font-black mb-1">痛點 <span class="text-red-500">*</span></label>
-    <input type="text" id="pain" placeholder="例如：月尾無錢使" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition peer">
-    <p class="text-xs text-gray-500 mt-1 opacity-0 peer-focus:opacity-100 transition-opacity duration-200">
-      目標客戶最痛嘅問題，例如：月尾無錢、減肥反彈、保費太貴
-    </p>
-  </div>
+    <!-- 痛點 -->
+    <div>
+      <label class="block text-lg font-black mb-2">痛點 <span class="text-red-500">*</span></label>
+      <input type="text" id="pain" placeholder="例如：月尾無錢使" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+      <p class="text-sm text-gray-500 mt-2">目標客戶最痛嘅問題，例如：月尾無錢、減肥反彈、保費太貴</p>
+    </div>
 
-  <div class="relative">
-    <label class="block text-lg font-black mb-1">競爭對手 <span class="text-red-500">*</span></label>
-    <input type="text" id="competitor" placeholder="例如：普通銀行" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition peer">
-    <p class="text-xs text-gray-500 mt-1 opacity-0 peer-focus:opacity-100 transition-opacity duration-200">
-      客戶之前用緊嘅方法，例如：普通銀行、減肥App、星座運程
-    </p>
-  </div>
+    <!-- 競爭對手 -->
+    <div>
+      <label class="block text-lg font-black mb-2">競爭對手 <span class="text-red-500">*</span></label>
+      <input type="text" id="competitor" placeholder="例如：普通銀行" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+      <p class="text-sm text-gray-500 mt-2">客戶之前用緊嘅方法，例如：普通銀行、減肥App、星座運程</p>
+    </div>
 
-  <div class="relative">
-    <label class="block text-lg font-black mb-1">最終目標 <span class="text-red-500">*</span></label>
-    <input type="text" id="goal" placeholder="例如：每月多$800被動收入" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition peer">
-    <p class="text-xs text-gray-500 mt-1 opacity-0 peer-focus:opacity-100 transition-opacity duration-200">
-      客戶用你產品之後嘅理想狀態，例如：財務自由、腹肌、搵到另一半
-    </p>
-  </div>
+    <!-- 最終目標 -->
+    <div>
+      <label class="block text-lg font-black mb-2">最終目標 <span class="text-red-500">*</span></label>
+      <input type="text" id="goal" placeholder="例如：每月多$800被動收入" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+      <p class="text-sm text-gray-500 mt-2">客戶用你產品之後嘅理想狀態，例如：財務自由、腹肌、搵到另一半</p>
+    </div>
 
-  <div class="relative">
-    <label class="block text-lg font-medium text-gray-700 mb-1">參考網址（可選）</label>
-    <input type="url" id="url" placeholder="例如：https://example.com" class="w-full px-5 py-4 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition peer">
-    <p class="text-xs text-gray-500 mt-1 opacity-0 peer-focus:opacity-100 transition-opacity duration-200">
-      有競爭對手或參考文案可以貼入嚟，我會幫你分析
-    </p>
-  </div>
-</div>
+    <!-- 參考網址（可選） -->
+    <div>
+      <label class="block text-lg font-medium text-gray-700 mb-2">參考網址（可選）</label>
+      <input type="url" id="url" placeholder="例如：https://example.com" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+      <p class="text-sm text-gray-500 mt-2">有競爭對手或參考文案可以貼入嚟，我會幫你分析</p>
+    </div>
 
     <!-- 內容策略（保留你原本） -->
     <div class="space-y-3">
@@ -338,5 +314,3 @@
     </script>
 </body>
 </html>
-
-
