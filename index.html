@@ -270,9 +270,38 @@
         sendMessage(`請幫我專業審核呢段 IG 文案，逐句分析轉化率問題，並畀出完整改進版（600+字）:\n\n${text}`);
       });
 
-      // Caption 方式1 & 2
-      captionFromFormBtn.addEventListener('click', () => { /* 你原本邏輯 */ });
-      captionFromTextBtn.addEventListener('click', () => { /* 你原本邏輯 */ });
+            // Caption 方式1：用之前填嘅資料生成 2 組 Caption
+      captionFromFormBtn.addEventListener('click', () => {
+        const fields = {
+          target: document.getElementById('target').value.trim(),
+          product: document.getElementById('product').value.trim(),
+          pain: document.getElementById('pain').value.trim(),
+          competitor: document.getElementById('competitor').value.trim(),
+          goal: document.getElementById('goal').value.trim()
+        };
+        if (!fields.target || !fields.product) {
+          alert('請至少填目標客戶同行業／產品！');
+          return;
+        }
+        sendMessage(`請根據以下資料，生成 2 組不同風格、每組約 300 字嘅高轉化 Caption（每組結尾配好 10–12 個精準 hashtag）：
+目標客戶：${fields.target}
+行業／產品：${fields.product}
+痛點：${fields.pain}
+競爭對手：${fields.competitor}
+最終目標：${fields.goal}`);
+      });
+
+      // Caption 方式2：貼完整文案生成 2 組 Caption
+      captionFromTextBtn.addEventListener('click', () => {
+        const text = document.getElementById('captionText').value.trim();
+        if (!text) {
+          alert('請貼入完整文案！');
+          return;
+        }
+        sendMessage(`請將以下完整文案濃縮成 2 組不同風格、每組約 300 字嘅高轉化 Caption（保留關鍵詞＋結尾配好 10–12 個精準 hashtag）：
+
+${text}`);
+      });
 
       // 聊天框
       chatForm.addEventListener('submit', e => {
@@ -308,3 +337,4 @@
     </script>
 </body>
 </html>
+
