@@ -218,19 +218,13 @@
 
       async function sendMessage(msg) {
         addMessage(msg, false);
-
-        // 超靚 loading 動畫
         const loadingBox = document.createElement('div');
         loadingBox.className = 'hard-shadow p-6 rounded-3xl border-4 border-black bg-white max-w-full sm:max-w-2xl';
-        loadingBox.innerHTML = `
-          <p class="font-bold text-lg mb-4">正在幫你生成高轉化貼文…</p>
-          <div class="space-y-3 text-base"></div>
-        `;
+        loadingBox.innerHTML = `<p class="font-bold text-lg mb-4">正在幫你生成高轉化貼文…</p><div class="space-y-3 text-base"></div>`;
         const stepsDiv = loadingBox.querySelector('div');
         messagesDiv.appendChild(loadingBox);
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
-        // 逐句顯示思考過程
         for (let i = 0; i < THINKING_STEPS.length; i++) {
           const step = document.createElement('p');
           step.innerHTML = THINKING_STEPS[i];
@@ -239,7 +233,6 @@
           await new Promise(r => setTimeout(r, 1400 + Math.random() * 600));
         }
 
-        // 真正發送 API 請求
         messageHistory.push({ role: 'user', content: msg });
         const res = await fetch('/api/chat', {
           method: 'POST',
@@ -253,7 +246,7 @@
         addMessage(reply, true);
         messageHistory.push({ role: 'assistant', content: reply });
       }
-      
+
       // 文案生成
       generateBtn.addEventListener('click', () => {
         const fields = {
@@ -355,8 +348,6 @@ ${text}`);
     </script>
 </body>
 </html>
-
-
 
 
 
