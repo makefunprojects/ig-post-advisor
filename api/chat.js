@@ -115,14 +115,7 @@ export default async function handler(req, res) {
       { role: 'system', content: SYSTEM_PROMPT },
       ...history,
       { role: 'user', content: message }
-    ]
     ];
-
-    // 關鍵：偵測係唔係「文案改善」功能
-    const isReview = message.includes('審核') || 
-                     message.includes('改善') || 
-                     message.includes('改進') || 
-                     message.includes('分析');
 
     const response = await fetch('https://api.x.ai/v1/chat/completions', {
       method: 'POST',
@@ -134,18 +127,23 @@ export default async function handler(req, res) {
         model: 'grok-3',
         messages,
         temperature: 0.8,
-        max_tokens: isReview ? 1800 : 1100,   // ← 文案改善放寬到 1800 tokens（約 1100–1200 字）
+        max_tokens: 1100,    // 嚴格鎖死，保證 600–800 字
         top_p: 0.9
       })
     });
 
-    if (!response.ok) throw new Error('API error');
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('xAI API Error:', response.status, errorText);
+      throw new Error('API request failed');
+    }
+
     const data = await response.json();
     const reply = data.choices?.[0]?.message?.content?.trim() || '（生成失敗，再試多次啦）';
 
     res.json({ reply });
   } catch (err) {
-    console.error(err);
+    console.error('Handler error:', err);
     res.status(500).json({ reply: '系統忙緊… 10秒後再試啦！' });
   }
 }
