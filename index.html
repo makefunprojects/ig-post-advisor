@@ -26,15 +26,15 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-<!-- 取代你現有嘅 header 部分 -->
-<header class="border-b-4 border-black p-6 text-center hard-shadow bg-white">
-  <h1 class="text-4xl font-black mb-3 leading-tight">IG Post 顧問 🚀</h1>
-  <p class="text-lg font-medium mb-2">高轉化 💡 IG 貼文即刻生成</p>
-  <div class="text-xs text-gray-600 space-y-1">
-    <p>由 Growth Lab HK 研發，未經授權不得轉載</p>
-    <p>此非一般 AI 工具，而是透過大量訓練，掌握了高轉化的思維</p>
-  </div>
-</header>
+  <!-- Header -->
+  <header class="border-b-4 border-black p-6 text-center hard-shadow bg-white">
+    <h1 class="text-4xl font-black mb-3 leading-tight">IG Post 顧問 🚀</h1>
+    <p class="text-lg font-medium mb-2">高轉化 💡 IG 貼文即刻生成</p>
+    <div class="text-xs text-gray-600 space-y-1">
+      <p>由 Growth Lab HK 研發，未經授權不得轉載</p>
+      <p>此非一般 AI 工具，而是透過大量訓練，掌握了高轉化的思維</p>
+    </div>
+  </header>
 
   <!-- 3 大功能 Tab -->
   <div class="p-4 bg-white border-b-4 border-black">
@@ -48,15 +48,15 @@
   <!-- 內容區域 -->
   <div id="tab-content" class="flex-1 flex flex-col overflow-hidden">
 
-    <!-- 文案生成 -->
+    <!-- 文案生成（5 個欄位 dropdown + 其他自行填寫） -->
     <section id="generate" class="tab-panel p-4 sm:p-6 bg-white flex-1 flex flex-col">
       <div class="max-w-4xl mx-auto space-y-6 w-full">
         <h2 class="text-2xl font-black text-center">快速生成 IG 貼文</h2>
 
-<div>
+        <!-- 目標客戶 -->
+        <div>
           <label class="block text-lg font-black mb-2">目標客戶 <span class="text-red-500">*</span></label>
-          <select id="target" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-            <option value="">請選擇（或自行輸入）</option>
+          <select id="target-select" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
             <option value="28歲月光族OL">28歲月光族OL</option>
             <option value="35歲中產爸爸">35歲中產爸爸</option>
             <option value="45歲保險從業員">45歲保險從業員</option>
@@ -65,14 +65,15 @@
             <option value="50歲退休人士">50歲退休人士</option>
             <option value="28歲上班族女生">28歲上班族女生</option>
             <option value="35歲愛美媽媽">35歲愛美媽媽</option>
+            <option value="其他（自行填寫）">其他（自行填寫）</option>
           </select>
+          <input type="text" id="target-custom" placeholder="請輸入目標客戶" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition mt-3 hidden">
         </div>
 
-        <!-- 行業／產品 dropdown -->
+        <!-- 行業／產品 -->
         <div>
           <label class="block text-lg font-black mb-2">行業／產品 <span class="text-red-500">*</span></label>
-          <select id="product" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-            <option value="">請選擇（或自行輸入）</option>
+          <select id="product-select" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
             <option value="高息儲蓄戶口">高息儲蓄戶口</option>
             <option value="健身課程">健身課程</option>
             <option value="美容療程">美容療程</option>
@@ -85,14 +86,15 @@
             <option value="豐胸產品">豐胸產品</option>
             <option value="頭髮護理產品">頭髮護理產品</option>
             <option value="護膚產品">護膚產品</option>
+            <option value="其他（自行填寫）">其他（自行填寫）</option>
           </select>
+          <input type="text" id="product-custom" placeholder="請輸入行業／產品" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition mt-3 hidden">
         </div>
 
-        <!-- 痛點 dropdown -->
+        <!-- 痛點 -->
         <div>
           <label class="block text-lg font-black mb-2">痛點 <span class="text-red-500">*</span></label>
-          <select id="pain" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-            <option value="">請選擇（或自行輸入）</option>
+          <select id="pain-select" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
             <option value="月尾無錢使">月尾無錢使</option>
             <option value="減肥反彈">減肥反彈</option>
             <option value="保費太貴">保費太貴</option>
@@ -105,14 +107,15 @@
             <option value="膠原蛋白流失">膠原蛋白流失</option>
             <option value="氣色差">氣色差</option>
             <option value="經常感冒">經常感冒</option>
+            <option value="其他（自行填寫）">其他（自行填寫）</option>
           </select>
+          <input type="text" id="pain-custom" placeholder="請輸入痛點" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition mt-3 hidden">
         </div>
 
-        <!-- 競爭對手 dropdown -->
+        <!-- 競爭對手 -->
         <div>
           <label class="block text-lg font-black mb-2">競爭對手 <span class="text-red-500">*</span></label>
-          <select id="competitor" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-            <option value="">請選擇（或自行輸入）</option>
+          <select id="competitor-select" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
             <option value="普通銀行">普通銀行</option>
             <option value="減肥App">減肥App</option>
             <option value="星座運程">星座運程</option>
@@ -123,14 +126,15 @@
             <option value="茶包花茶">茶包花茶</option>
             <option value="平價香水">平價香水</option>
             <option value="普通美容院">普通美容院</option>
+            <option value="其他（自行填寫）">其他（自行填寫）</option>
           </select>
+          <input type="text" id="competitor-custom" placeholder="請輸入競爭對手" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition mt-3 hidden">
         </div>
 
-        <!-- 最終目標 dropdown -->
+        <!-- 最終目標 -->
         <div>
           <label class="block text-lg font-black mb-2">最終目標 <span class="text-red-500">*</span></label>
-          <select id="goal" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-            <option value="">請選擇（或自行輸入）</option>
+          <select id="goal-select" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
             <option value="每月多$800被動收入">每月多$800被動收入</option>
             <option value="腹肌">腹肌</option>
             <option value="搵到另一半">搵到另一半</option>
@@ -142,7 +146,9 @@
             <option value="由內到外年輕 10 歲">由內到外年輕 10 歲</option>
             <option value="增強魅力">增強魅力</option>
             <option value="提升自信">提升自信</option>
+            <option value="其他（自行填寫）">其他（自行填寫）</option>
           </select>
+          <input type="text" id="goal-custom" placeholder="請輸入最終目標" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition mt-3 hidden">
         </div>
 
         <!-- 參考網址 -->
@@ -151,7 +157,7 @@
           <input type="url" id="url" placeholder="例如：https://example.com" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
         </div>
 
-        <!-- 內容策略 -->
+        <!-- 內容策略（保留你原本最靚嘅 button 版） -->
         <div class="space-y-3">
           <label class="block text-lg font-bold">內容策略（請揀一個）</label>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -169,7 +175,7 @@
           生成 IG 貼文
         </button>
 
-        <!-- 顧問聊天室提示（已修正箭咀） -->
+        <!-- 顧問聊天室提示 -->
         <div class="my-10 text-center">
           <p class="text-2xl font-black inline-flex items-center gap-4">
             ⬇️ 顧問聊天室 ⬇️
@@ -211,10 +217,8 @@
       </div>
     </section>
 
-    <!-- 聊天室 -->
+   <!-- 聊天室 + 底部輸入框（保留） -->
     <main id="messages" class="flex-1 overflow-y-auto px-4 pt-6 pb-2 bg-[#F3F4F6] space-y-5"></main>
-
-    <!-- 底部輸入框 -->
     <form id="chatForm" class="bg-white border-t-4 border-black hard-shadow">
       <div class="p-4 max-w-5xl mx-auto">
         <div class="flex flex-col sm:flex-row gap-3">
@@ -306,11 +310,11 @@
       // 文案生成
       generateBtn.addEventListener('click', () => {
         const fields = {
-          target: document.getElementById('target').value.trim(),
-          product: document.getElementById('product').value.trim(),
-          pain: document.getElementById('pain').value.trim(),
-          competitor: document.getElementById('competitor').value.trim(),
-          goal: document.getElementById('goal').value.trim(),
+          target: document.getElementById('target-select').value === '其他（自行填寫）' ? document.getElementById('target-custom').value.trim() : document.getElementById('target-select').value,
+          product: document.getElementById('product-select').value === '其他（自行填寫）' ? document.getElementById('product-custom').value.trim() : document.getElementById('product-select').value,
+          pain: document.getElementById('pain-select').value === '其他（自行填寫）' ? document.getElementById('pain-custom').value.trim() : document.getElementById('pain-select').value,
+          competitor: document.getElementById('competitor-select').value === '其他（自行填寫）' ? document.getElementById('competitor-custom').value.trim() : document.getElementById('competitor-select').value,
+          goal: document.getElementById('goal-select').value === '其他（自行填寫）' ? document.getElementById('goal-custom').value.trim() : document.getElementById('goal-select').value,
           url: document.getElementById('url').value.trim(),
           strategy: document.querySelector('input[name="strategy"]:checked')?.value
         };
@@ -380,8 +384,7 @@ ${text}`);
           userInput.style.height = 'auto';
         }
       });
-
-      // 開場 + 載入上次輸入
+// 開場 + 載入上次輸入
       setTimeout(() => {
         addMessage(`哈囉！我是你嘅 IG Post 顧問\n\n而家有 3 大功能畀你用～\n等緊你呀！`, true);
 
@@ -389,20 +392,47 @@ ${text}`);
         const saved = localStorage.getItem('igPostAdvisorSavedInputs');
         if (saved) {
           const data = JSON.parse(saved);
-          document.getElementById('target').value = data.target || '';
-          document.getElementById('product').value = data.product || '';
-          document.getElementById('pain').value = data.pain || '';
-          document.getElementById('competitor').value = data.competitor || '';
-          document.getElementById('goal').value = data.goal || '';
+          document.getElementById('target-select').value = data.target || '';
+          document.getElementById('product-select').value = data.product || '';
+          document.getElementById('pain-select').value = data.pain || '';
+          document.getElementById('competitor-select').value = data.competitor || '';
+          document.getElementById('goal-select').value = data.goal || '';
           document.getElementById('url').value = data.url || '';
           if (data.strategy) {
             const radio = document.querySelector(`input[name="strategy"][value="${data.strategy}"]`);
             if (radio) radio.checked = true;
           }
+          // 載入自訂輸入框（如果上次係「其他」）
+          ['target', 'product', 'pain', 'competitor', 'goal'].forEach(field => {
+            const select = document.getElementById(field + '-select');
+            const custom = document.getElementById(field + '-custom');
+            if (select.value === '其他（自行填寫）') {
+              custom.classList.remove('hidden');
+              custom.value = data[field] || '';
+            }
+          });
         }
       }, 500);
+
+      // ← 喺呢度下面貼我畀你嘅「自動顯示自訂輸入框」code
+      // 自動顯示自訂輸入框
+      ['target', 'product', 'pain', 'competitor', 'goal'].forEach(field => {
+        const select = document.getElementById(field + '-select');
+        const custom = document.getElementById(field + '-custom');
+
+        select.addEventListener('change', () => {
+          if (select.value === '其他（自行填寫）') {
+            custom.classList.remove('hidden');
+            custom.focus();
+          } else {
+            custom.classList.add('hidden');
+            custom.value = '';
+          }
+        });
+      });
+
     </script>
-</body>
+  </body>
 </html>
 
 
