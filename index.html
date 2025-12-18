@@ -53,46 +53,102 @@
       <div class="max-w-4xl mx-auto space-y-6 w-full">
         <h2 class="text-2xl font-black text-center">快速生成 IG 貼文</h2>
 
-        <!-- 目標客戶 -->
-        <div>
+<div>
           <label class="block text-lg font-black mb-2">目標客戶 <span class="text-red-500">*</span></label>
-          <input type="text" id="target" placeholder="例如：28歲月光族OL" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-          <p class="text-sm text-gray-500 mt-2">例如：28歲月光族OL、35歲中產爸爸、50歲保險從業員</p>
+          <select id="target" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+            <option value="">請選擇（或自行輸入）</option>
+            <option value="28歲月光族OL">28歲月光族OL</option>
+            <option value="35歲中產爸爸">35歲中產爸爸</option>
+            <option value="45歲保險從業員">45歲保險從業員</option>
+            <option value="25歲健身新手">25歲健身新手</option>
+            <option value="30歲美甲師">30歲美甲師</option>
+            <option value="50歲退休人士">50歲退休人士</option>
+            <option value="28歲上班族女生">28歲上班族女生</option>
+            <option value="35歲愛美媽媽">35歲愛美媽媽</option>
+          </select>
         </div>
 
-        <!-- 行業／產品 -->
+        <!-- 行業／產品 dropdown -->
         <div>
           <label class="block text-lg font-black mb-2">行業／產品 <span class="text-red-500">*</span></label>
-          <input type="text" id="product" placeholder="例如：高息儲蓄戶口" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-          <p class="text-sm text-gray-500 mt-2">你想推銷嘅產品或服務，例如：保險、健身課程、占卜</p>
+          <select id="product" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+            <option value="">請選擇（或自行輸入）</option>
+            <option value="高息儲蓄戶口">高息儲蓄戶口</option>
+            <option value="健身課程">健身課程</option>
+            <option value="美容療程">美容療程</option>
+            <option value="塔羅占卜">塔羅占卜</option>
+            <option value="養生桃膠">養生桃膠</option>
+            <option value="養生花茶">養生花茶</option>
+            <option value="費洛蒙香水">費洛蒙香水</option>
+            <option value="肌膚膠原再生療程">肌膚膠原再生療程</option>
+            <option value="保險人吸客系統">保險人吸客系統</option>
+            <option value="豐胸產品">豐胸產品</option>
+            <option value="頭髮護理產品">頭髮護理產品</option>
+            <option value="護膚產品">護膚產品</option>
+          </select>
         </div>
 
-        <!-- 痛點 -->
+        <!-- 痛點 dropdown -->
         <div>
           <label class="block text-lg font-black mb-2">痛點 <span class="text-red-500">*</span></label>
-          <input type="text" id="pain" placeholder="例如：月尾無錢使" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-          <p class="text-sm text-gray-500 mt-2">目標客戶最痛嘅問題，例如：月尾無錢、減肥反彈、保費太貴</p>
+          <select id="pain" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+            <option value="">請選擇（或自行輸入）</option>
+            <option value="月尾無錢使">月尾無錢使</option>
+            <option value="減肥反彈">減肥反彈</option>
+            <option value="保費太貴">保費太貴</option>
+            <option value="搵唔到另一半">搵唔到另一半</option>
+            <option value="事業迷茫">事業迷茫</option>
+            <option value="皮膚暗沉">皮膚暗沉</option>
+            <option value="壓力大">壓力大</option>
+            <option value="頭髮乾枯">頭髮乾枯</option>
+            <option value="胸部下垂">胸部下垂</option>
+            <option value="膠原蛋白流失">膠原蛋白流失</option>
+            <option value="氣色差">氣色差</option>
+            <option value="經常感冒">經常感冒</option>
+          </select>
         </div>
 
-        <!-- 競爭對手 -->
+        <!-- 競爭對手 dropdown -->
         <div>
           <label class="block text-lg font-black mb-2">競爭對手 <span class="text-red-500">*</span></label>
-          <input type="text" id="competitor" placeholder="例如：普通銀行" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-          <p class="text-sm text-gray-500 mt-2">客戶之前用緊嘅方法，例如：普通銀行、減肥App、星座運程</p>
+          <select id="competitor" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+            <option value="">請選擇（或自行輸入）</option>
+            <option value="普通銀行">普通銀行</option>
+            <option value="減肥App">減肥App</option>
+            <option value="星座運程">星座運程</option>
+            <option value="專櫃護膚品">專櫃護膚品</option>
+            <option value="免費占卜">免費占卜</option>
+            <option value="傳統保險">傳統保險</option>
+            <option value="超市桃膠">超市桃膠</option>
+            <option value="茶包花茶">茶包花茶</option>
+            <option value="平價香水">平價香水</option>
+            <option value="普通美容院">普通美容院</option>
+          </select>
         </div>
 
-        <!-- 最終目標 -->
+        <!-- 最終目標 dropdown -->
         <div>
           <label class="block text-lg font-black mb-2">最終目標 <span class="text-red-500">*</span></label>
-          <input type="text" id="goal" placeholder="例如：每月多$800被動收入" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-          <p class="text-sm text-gray-500 mt-2">客戶用你產品之後嘅理想狀態，例如：財務自由、腹肌、搵到另一半</p>
+          <select id="goal" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
+            <option value="">請選擇（或自行輸入）</option>
+            <option value="每月多$800被動收入">每月多$800被動收入</option>
+            <option value="腹肌">腹肌</option>
+            <option value="搵到另一半">搵到另一半</option>
+            <option value="財務自由">財務自由</option>
+            <option value="水光肌">水光肌</option>
+            <option value="事業清晰">事業清晰</option>
+            <option value="胸部升杯">胸部升杯</option>
+            <option value="頭髮柔順">頭髮柔順</option>
+            <option value="由內到外年輕 10 歲">由內到外年輕 10 歲</option>
+            <option value="增強魅力">增強魅力</option>
+            <option value="提升自信">提升自信</option>
+          </select>
         </div>
 
         <!-- 參考網址 -->
         <div>
           <label class="block text-lg font-medium text-gray-700 mb-2">參考網址（可選）</label>
           <input type="url" id="url" placeholder="例如：https://example.com" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
-          <p class="text-sm text-gray-500 mt-2">有競爭對手或參考文案可以貼入嚟，我會幫你分析</p>
         </div>
 
         <!-- 內容策略 -->
@@ -348,6 +404,7 @@ ${text}`);
     </script>
 </body>
 </html>
+
 
 
 
