@@ -163,7 +163,7 @@ export default async function handler(req, res) {
         model: 'grok-3',
         messages,
         temperature: 0.8,
-        max_tokens: 1100,    // 嚴格鎖死，保證 600–800 字
+        max_tokens: 1800,    // 嚴格鎖死，保證 600–800 字
         top_p: 0.9
       })
     });
@@ -183,5 +183,6 @@ export default async function handler(req, res) {
     res.status(500).json({ reply: '系統忙緊… 10秒後再試啦！' });
   }
 }
+
 
 
