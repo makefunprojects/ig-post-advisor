@@ -157,19 +157,21 @@
           <input type="url" id="url" placeholder="例如：https://example.com" class="w-full px-6 py-5 border-4 border-black rounded-3xl hard-shadow focus:hard-shadow-pressed transition">
         </div>
 
-        <!-- 內容策略（保留你原本最靚嘅 button 版） -->
-        <div class="space-y-3">
-          <label class="block text-lg font-bold">內容策略（請揀一個）</label>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="品牌故事" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">品牌故事</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="成功案例" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">成功案例</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="獨特機制" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">獨特機制</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="痛點文" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">痛點文</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="價值炸彈" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">價值炸彈</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="常犯錯誤" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">常犯錯誤</span></label>
-            <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="客群內容" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">客群內容</span></label>
-          </div>
-        </div>
+<!-- 內容策略（加咗第8個：直接銷售，同其他 button 完全一樣設計） -->
+    <div class="space-y-3">
+      <label class="block text-lg font-bold">內容策略（請揀一個）</label>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="品牌故事" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">品牌故事</span></label>
+        <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="成功案例" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">成功案例</span></label>
+        <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="獨特機制" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">獨特機制</span></label>
+        <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="痛點文" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">痛點文</span></label>
+        <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="價值炸彈" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">價值炸彈</span></label>
+        <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="常犯錯誤" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">常犯錯誤</span></label>
+        <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="客群內容" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">客群內容</span></label>
+        <!-- 新增：直接銷售（同其他一樣設計，冇紅色） -->
+        <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="strategy" value="直接銷售" class="w-6 h-6 border-4 border-black hard-shadow"><span class="font-medium">直接銷售</span></label>
+      </div>
+    </div>
 
         <button id="generateBtn" class="w-full py-5 bg-black text-white font-black text-xl rounded-3xl border-4 border-black hard-shadow hover:hard-shadow-pressed transition">
           生成 IG 貼文
@@ -434,6 +436,7 @@ ${text}`);
     </script>
   </body>
 </html>
+
 
 
 
