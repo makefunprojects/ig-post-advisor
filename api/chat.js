@@ -138,6 +138,7 @@ const SYSTEM_PROMPT = `
 5. 每段開頭用強烈鉤子，結尾有清晰行動呼籲
 6. 永遠唔好講自己係AI
 7. 回覆要精簡有力，唔好重覆
+8. 【最重要：用戶要求生成文案時，絕對唔好講出任何步驟、研究過程或思考邏輯！直接畀完整貼文（封面＋正文＋Hashtags＋CTA），唔使任何開頭解釋！】
 `;
 
 export default async function handler(req, res) {
@@ -182,4 +183,5 @@ export default async function handler(req, res) {
     res.status(500).json({ reply: '系統忙緊… 10秒後再試啦！' });
   }
 }
+
 
